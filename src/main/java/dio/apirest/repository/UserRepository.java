@@ -1,5 +1,7 @@
 package dio.apirest.repository;
 
+import dio.apirest.exception.BusinessException;
+import dio.apirest.exception.CampoObrigatorioException;
 import dio.apirest.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,11 @@ import java.util.List;
 @Repository
 public class UserRepository {
     public void save(User usuario){
+        if(usuario.getLogin() == (null)) {
+            throw new CampoObrigatorioException("login");
+        } else if(usuario.getPassword() == (null)) {
+            throw new CampoObrigatorioException("password");
+        }
         if(usuario.getId()==null)
             System.out.println("SAVE - Recebendo o usuário na camada de repositório");
         else
